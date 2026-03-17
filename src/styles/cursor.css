@@ -1,0 +1,113 @@
+/* ══════════════════════════════════════════════
+   UPGRADED "CUTE" & "CLEAR" COSMIC CURSOR
+   ══════════════════════════════════════════════ */
+
+#cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--cosmic-teal, #00e5cc);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.3s,
+              background-color 0.3s ease;
+  box-shadow: 0 0 8px var(--cosmic-teal, #00e5cc),
+              0 0 15px rgba(0, 229, 204, 0.4);
+}
+
+#cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid rgba(0, 229, 204, 0.3);
+  background: rgba(0, 229, 204, 0.03);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.4s ease,
+              border-radius 0.4s ease,
+              background 0.4s ease,
+              transform 0.4s ease,
+              backdrop-filter 0.4s ease;
+}
+
+/* Gravitational lensing near hero — applied via JS */
+#cursor-ring.warped {
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  width: 70px;
+  height: 40px;
+  border-color: rgba(255, 153, 51, 0.6);
+  background: rgba(255, 153, 51, 0.05);
+  backdrop-filter: blur(3px) hue-rotate(-10deg);
+  -webkit-backdrop-filter: blur(3px) hue-rotate(-10deg);
+  animation: warp-spin 4s linear infinite;
+}
+
+/* ──────────────────────────────────────────────
+   Cute, Random-Shape-Shifting Text Hover State
+   ────────────────────────────────────────────── */
+
+#cursor-dot.hover-link {
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+
+#cursor-ring.hover-link {
+  width: 50px;
+  height: 50px;
+  border-color: rgba(255, 179, 102, 0.6); /* Softer saffron for "cute" */
+  background: rgba(255, 204, 153, 0.08); /* Soft fill */
+  animation: cute-morph 2s infinite ease-in-out; /* Continuous, playful movement */
+  transform: translate(-50%, -50%) rotate(0deg); /* Explicitly set initial rotate */
+
+  /* IMPORTANT: Ensures text is NOT blurred */
+  backdrop-filter: blur(0px) contrast(1);
+  -webkit-backdrop-filter: blur(0px) contrast(1);
+}
+
+/* Animation keyframes for the cute morphing shapes */
+@keyframes cute-morph {
+  0% {
+    border-radius: 50%; /* Circle */
+    width: 50px; height: 50px;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    border-radius: 60% 40% 70% 30% / 40% 50% 60% 50%; /* Soft polygon */
+    width: 55px; height: 45px;
+    transform: translate(-50%, -50%) rotate(5deg);
+  }
+  50% {
+    border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%; /* Rounded star-like */
+    width: 48px; height: 52px;
+    transform: translate(-50%, -50%) rotate(-5deg);
+  }
+  75% {
+    border-radius: 45% 55% 65% 35% / 55% 45% 55% 45%; /* Irregular blob */
+    width: 52px; height: 48px;
+    transform: translate(-50%, -50%) rotate(3deg);
+  }
+  100% {
+    border-radius: 50%; /* Back to circle */
+    width: 50px; height: 50px;
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+/* Optional: Keyframes for the warped state spin to make it look alive */
+@keyframes warp-spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}

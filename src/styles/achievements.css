@@ -1,0 +1,199 @@
+/* ══════════════════════════════════════════════
+   ACHIEVEMENTS — तपःफलम्
+   ══════════════════════════════════════════════ */
+#achievements {
+  position: relative;
+}
+
+#achievements-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#achievements .section-header {
+  position: relative;
+  z-index: 1;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── BASE CARD ── */
+.achievement-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.achievement-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger each card */
+.achievement-card:nth-child(1) { transition: all 0.6s ease 0.0s; }
+.achievement-card:nth-child(2) { transition: all 0.6s ease 0.1s; }
+.achievement-card:nth-child(3) { transition: all 0.6s ease 0.2s; }
+.achievement-card:nth-child(4) { transition: all 0.6s ease 0.3s; }
+.achievement-card:nth-child(5) { transition: all 0.6s ease 0.4s; }
+.achievement-card:nth-child(6) { transition: all 0.6s ease 0.5s; }
+
+/* Top shimmer on hover */
+.achievement-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--cosmic-teal),
+    var(--saffron),
+    transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.achievement-card:hover::before { opacity: 1; }
+
+.achievement-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(0, 229, 204, 0.08);
+}
+
+/* ── ICON ── */
+.achievement-icon {
+  font-size: 1.4rem;
+  color: var(--cosmic-teal);
+  opacity: 0.6;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* ── STAT NUMBER ── */
+.achievement-number {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 700;
+  background: linear-gradient(135deg,
+    var(--cosmic-teal),
+    var(--saffron));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  text-shadow: none;
+}
+
+/* ── LABELS ── */
+.achievement-label {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--star-white);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.achievement-sub {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+/* ── CERT CARD SPECIFIC ── */
+.cert-card {
+  border-color: rgba(255, 153, 51, 0.2);
+}
+
+.cert-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle at 100% 100%,
+    rgba(255, 153, 51, 0.06),
+    transparent 70%);
+  border-radius: 0 0 16px 0;
+}
+
+.cert-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 153, 51, 0.08);
+  border: 1px solid rgba(255, 153, 51, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  box-shadow:
+    0 0 20px rgba(255, 153, 51, 0.15),
+    inset 0 0 20px rgba(255, 153, 51, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.cert-card:hover .cert-badge {
+  box-shadow:
+    0 0 30px rgba(255, 153, 51, 0.3),
+    inset 0 0 20px rgba(255, 153, 51, 0.08);
+}
+
+.cert-label {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--saffron);
+  letter-spacing: 0.1em;
+}
+
+.cert-vedanta {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 153, 51, 0.15);
+}
+
+.cert-vedanta span {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.75rem;
+  color: rgba(255, 153, 51, 0.5);
+  letter-spacing: 0.1em;
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 900px) {
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

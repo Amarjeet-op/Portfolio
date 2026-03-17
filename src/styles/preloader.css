@@ -1,0 +1,47 @@
+/* ══════════════════════════════════════════════
+   PRELOADER — Bindu Convergence
+   ══════════════════════════════════════════════ */
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9000;
+  background: var(--void-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#preloader-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#preloader-text {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: rgba(232, 232, 240, 0);
+  letter-spacing: 0.15em;
+  margin-top: 40px;
+  transition: color 1s ease;
+}
+
+#preloader-text.visible {
+  color: var(--text-secondary);
+}
+
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}

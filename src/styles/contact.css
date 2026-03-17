@@ -1,0 +1,367 @@
+/* ══════════════════════════════════════════════
+   CONTACT — संवाद
+   ══════════════════════════════════════════════ */
+#contact {
+  position: relative;
+}
+
+#contact-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#contact .section-header,
+.contact-epigraph-wrap,
+.contact-grid,
+.contact-closing {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── EPIGRAPH ── */
+.contact-epigraph-wrap {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  max-width: 540px;
+  width: 100%;
+}
+
+.contact-epigraph {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #FFD700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+}
+
+.contact-epigraph-translit {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: rgba(255, 215, 0, 0.5);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.75rem;
+}
+
+.contact-epigraph-meaning {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ivory);
+  margin-bottom: 0.4rem;
+}
+
+.epigraph-source {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.1em;
+}
+
+/* ── CONTACT GRID ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1000px;
+  width: 100%;
+  margin-bottom: 3rem;
+  align-items: start;
+}
+
+/* ── FORM SIDE ── */
+.contact-form-label,
+.contact-links-label {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cosmic-teal);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: var(--star-white);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: none;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  font-style: italic;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(0, 229, 204, 0.4);
+  box-shadow: 
+    0 0 0 3px rgba(0, 229, 204, 0.06),
+    0 0 20px rgba(0, 229, 204, 0.08);
+}
+
+/* ── SUBMIT BUTTON ── */
+.submit-btn {
+  background: linear-gradient(135deg,
+    rgba(0, 229, 204, 0.12),
+    rgba(255, 153, 51, 0.12));
+  border: 1px solid rgba(0, 229, 204, 0.3);
+  border-radius: 10px;
+  padding: 16px 32px;
+  cursor: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(0, 229, 204, 0.1),
+    rgba(255, 153, 51, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.submit-btn:hover::before { opacity: 1; }
+
+.submit-btn:hover {
+  border-color: rgba(0, 229, 204, 0.6);
+  box-shadow:
+    0 0 20px rgba(0, 229, 204, 0.15),
+    0 0 40px rgba(255, 153, 51, 0.08);
+  transform: translateY(-2px);
+}
+
+.submit-text {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--star-white);
+}
+
+.submit-sanskrit {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.7rem;
+  color: rgba(255, 215, 0, 0.45);
+  letter-spacing: 0.1em;
+}
+
+/* ── LINKS SIDE ── */
+.contact-links-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-link-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.contact-link-item:last-of-type {
+  border-bottom: none;
+}
+
+.contact-link-item:hover {
+  padding-left: 8px;
+}
+
+.contact-link-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.75rem;
+  color: var(--cosmic-teal);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.contact-link-item:hover .contact-link-icon {
+  border-color: rgba(0, 229, 204, 0.4);
+  box-shadow: 0 0 12px rgba(0, 229, 204, 0.2);
+}
+
+.contact-link-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-link-type {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.contact-link-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--star-white);
+  transition: color 0.3s;
+}
+
+.contact-link-value:hover {
+  color: var(--cosmic-teal);
+}
+
+/* ── AVAILABILITY BADGE ── */
+.availability-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.5rem;
+  padding: 12px 16px;
+  background: rgba(0, 229, 204, 0.04);
+  border: 1px solid rgba(0, 229, 204, 0.15);
+  border-radius: 999px;
+}
+
+.availability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e5cc;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 229, 204, 0.8);
+  animation: avail-pulse 2s ease-in-out infinite;
+}
+
+@keyframes avail-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(0, 229, 204, 0.8); }
+  50%       { box-shadow: 0 0 16px rgba(0, 229, 204, 0.4), 0 0 30px rgba(0, 229, 204, 0.2); }
+}
+
+.availability-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(0, 229, 204, 0.7);
+  letter-spacing: 0.05em;
+}
+
+/* ── CLOSING LINE ── */
+.contact-closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.closing-sanskrit {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.1rem;
+  color: rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+.closing-meaning {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contact-epigraph-wrap {
+    padding: 1.5rem;
+  }
+}
+
+
+/* ``` 
+
+---
+
+### The section now reads:
+```
+
+/*  
+संवाद — Sacred Dialogue
+"The dialogue between two — where the separate discover they are One"
+
+      ┌─────────────────────────────────┐
+      │  असतो मा सद्गमय                │
+      │  Asato mā sad gamaya            │
+      │  "From the unreal, to the real" │
+      └─────────────────────────────────┘
+
+  Begin the Dialogue        Find Me In The Grid
+  ─────────────────         ───────────────────
+  [ Your Name       ]       ✉  Email
+  [ Your Email      ]       ☎  Phone  
+  [ Your Message    ]       in LinkedIn
+  [ संवाद आरम्भ    ]       ⌥  GitHub
+                            ⬡  GFG #206
+                            ● Open to SDE-1 roles
+
+        वसुधैव कुटुम्बकम्
+        "The world is one family"

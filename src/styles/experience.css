@@ -1,0 +1,346 @@
+/* ══════════════════════════════════════════════
+   EXPERIENCE — अनुभव
+   ══════════════════════════════════════════════ */
+#experience {
+  perspective: 1000px;
+  position: relative;
+}
+
+#experience-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#experience .section-header {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── TIMELINE CONTAINER ── */
+.timeline {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  padding-left: 70px;
+  z-index: 1;
+}
+
+/* ── GLOWING TUBE ── */
+.timeline-tube {
+  position: absolute;
+  top: 0;
+  left: 28px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--cosmic-teal) 15%,
+    var(--saffron) 50%,
+    var(--cosmic-teal) 85%,
+    transparent 100%);
+  border-radius: 2px;
+  box-shadow:
+    0 0 8px rgba(0, 229, 204, 0.5),
+    0 0 20px rgba(0, 229, 204, 0.2),
+    0 0 40px rgba(255, 153, 51, 0.1);
+}
+
+/* Animated glow pulse on tube */
+.timeline-tube::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 8px;
+  height: 40px;
+  background: linear-gradient(180deg,
+    transparent,
+    rgba(0, 229, 204, 0.8),
+    transparent);
+  border-radius: 4px;
+  animation: tube-pulse 3s ease-in-out infinite;
+}
+
+@keyframes tube-pulse {
+  0%   { top: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ── TIMELINE NODE ── */
+.timeline-node {
+  position: relative;
+  margin-bottom: 50px;
+  transform-style: preserve-3d;
+}
+
+.timeline-node:last-child {
+  margin-bottom: 0;
+}
+
+/* ── NODE SPHERE ── */
+.node-sphere {
+  position: absolute;
+  left: -48px;
+  top: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%,
+    #ffffff,
+    var(--cosmic-teal) 40%,
+    rgba(0, 229, 204, 0.2));
+  box-shadow:
+    0 0 0 4px rgba(0, 229, 204, 0.1),
+    0 0 15px rgba(0, 229, 204, 0.5),
+    0 0 30px rgba(0, 229, 204, 0.2),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 229, 204, 0.5);
+  transition:
+    transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s ease;
+  transform: scale(0) rotateY(90deg);
+  z-index: 2;
+}
+
+.timeline-node.in-view .node-sphere {
+  transform: scale(1) rotateY(0deg);
+  box-shadow:
+    0 0 0 6px rgba(0, 229, 204, 0.08),
+    0 0 20px rgba(0, 229, 204, 0.6),
+    0 0 40px rgba(0, 229, 204, 0.3);
+}
+
+/* Pulse ring on sphere */
+.node-sphere::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 204, 0.3);
+  opacity: 0;
+  animation: sphere-ring 2.5s ease-in-out infinite;
+}
+
+.timeline-node.in-view .node-sphere::after {
+  opacity: 1;
+}
+
+@keyframes sphere-ring {
+  0%, 100% { transform: scale(1);   opacity: 0.4; }
+  50%       { transform: scale(1.4); opacity: 0; }
+}
+
+/* ── NODE CONTENT CARD ── */
+.node-content {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-left: 2px solid rgba(0, 229, 204, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 32px 28px;
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top shimmer line */
+.node-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--cosmic-teal),
+    var(--saffron),
+    transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.4s;
+}
+
+.timeline-node.in-view .node-content::before {
+  opacity: 1;
+}
+
+/* Corner accent */
+.node-content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 100% 100%,
+    rgba(255, 153, 51, 0.06),
+    transparent 70%);
+  border-radius: 0 0 16px 0;
+}
+
+.timeline-node.in-view .node-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── NODE DATE ── */
+.node-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cosmic-teal);
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.node-date::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--cosmic-teal);
+  opacity: 0.5;
+}
+
+/* ── HEADING & COMPANY ── */
+.node-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--star-white);
+  margin-bottom: 5px;
+  letter-spacing: 0.03em;
+}
+
+.node-content h4 {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--saffron);
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 20px;
+  opacity: 0.85;
+}
+
+/* ── VEDANTA LINE ── */
+.node-vedanta-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: rgba(255, 215, 0, 0.55);
+  margin: -8px 0 18px 0;
+  border-left: 2px solid rgba(255, 215, 0, 0.25);
+  padding-left: 10px;
+  line-height: 1.6;
+}
+
+/* ── BULLET LIST ── */
+.node-content ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.node-content li {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  padding-left: 18px;
+  position: relative;
+}
+
+.node-content li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--cosmic-teal);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+/* ── KEYWORD CHIPS ── */
+.tl-kw {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #FFD700;
+  background: rgba(255, 215, 0, 0.07);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 4px;
+  padding: 1px 7px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.tl-kw:hover {
+  background: rgba(255, 215, 0, 0.14);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+}
+
+/* ── CONNECTOR LINE between sphere and card ── */
+.timeline-node::before {
+  content: '';
+  position: absolute;
+  left: -36px;
+  top: 23px;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(0, 229, 204, 0.5),
+    rgba(0, 229, 204, 0.1));
+  opacity: 0;
+  transition: opacity 0.5s ease 0.3s;
+}
+
+.timeline-node.in-view::before {
+  opacity: 1;
+}
+
+/* ── STAGGER delays ── */
+.timeline-node[data-index="0"] .node-content { transition-delay: 0.1s; }
+.timeline-node[data-index="1"] .node-content { transition-delay: 0.2s; }
+.timeline-node[data-index="0"] .node-sphere  { transition-delay: 0s; }
+.timeline-node[data-index="1"] .node-sphere  { transition-delay: 0.1s; }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 44px;
+  }
+  .timeline-tube {
+    left: 14px;
+  }
+  .node-sphere {
+    left: -32px;
+    top: 10px;
+    width: 18px;
+    height: 18px;
+  }
+  .node-content {
+    padding: 22px 18px;
+  }
+  .node-content h3 {
+    font-size: 1rem;
+  }
+  .timeline-node::before {
+    left: -22px;
+    width: 16px;
+  }
+}

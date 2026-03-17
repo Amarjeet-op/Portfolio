@@ -1,0 +1,105 @@
+/* ══════════════════════════════════════════════
+   ABOUT — तत् त्वम् असि
+   ══════════════════════════════════════════════ */
+
+#about {
+  perspective: 1200px;
+}
+
+.about-container {
+  max-width: 700px;
+  width: 100%;
+}
+
+.section-title {
+  margin-top: 4rem;     /* push it down from whatever is above */
+  margin-bottom: 0;     /* remove space below it */
+}
+
+.about-card {
+  background: var(--glass-bg);
+  border: 1px solid rgba(245, 200, 66, 0.15); /* gold tint instead of default */
+  backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 32px 36px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  box-shadow:
+    0 0 60px rgba(157, 0, 255, 0.08),  /* purple ambient */
+    0 0 120px rgba(245, 200, 66, 0.04); /* gold ambient */
+}
+
+.about-text {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  transform: translateZ(30px);
+  letter-spacing: 0.02em;
+}
+
+/* style the italic question inside */
+.about-text em {
+  color: var(--cosmic-teal);
+  font-style: italic;
+  text-shadow: 0 0 20px rgba(0, 229, 204, 0.4);
+}
+
+.about-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  transform: translateZ(40px);
+}
+
+.badge {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 18px;
+  border: 1px solid rgba(0, 229, 204, 0.25);
+  border-radius: 100px;
+  color: var(--cosmic-teal);
+  background: rgba(0, 229, 204, 0.06);
+  letter-spacing: 0.05em;
+  transition: all 0.3s;
+  animation: floatBadge 6s ease-in-out infinite;
+}
+
+.badge {
+  border-color: rgba(245, 200, 66, 0.3);
+  color: #6ff542;
+  background: rgba(245, 200, 66, 0.06);
+}
+.badge:last-child:hover {
+  background: rgba(245, 200, 66, 0.15);
+  border-color: #f5c842;
+  box-shadow: 0 0 20px rgba(245, 200, 66, 0.3);
+}
+
+.badge:nth-child(2) { animation-delay: -1.5s; }
+.badge:nth-child(3) { animation-delay: -3s; }
+.badge:nth-child(4) { animation-delay: -4.5s; }
+
+.badge:hover {
+  background: rgba(0, 229, 204, 0.15);
+  border-color: var(--cosmic-teal);
+  box-shadow: var(--glow-teal);
+  transform: translateY(-2px);
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    padding: 30px 24px;
+  }
+  .about-text {
+    font-size: 1rem;
+  }
+}
