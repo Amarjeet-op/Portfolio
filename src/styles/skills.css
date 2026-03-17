@@ -122,5 +122,6 @@
   }
   .skill-row span {
     min-width: auto;
+    white-space: normal;
   }
 }

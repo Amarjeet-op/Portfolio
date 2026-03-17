@@ -4,6 +4,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export function initScrollAnimations() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  const simplify = prefersReducedMotion || (isSmallScreen && isTouch);
+
   // Sections fly in with rotateX and translateY — space travel feel
   const sections = document.querySelectorAll('.section');
 
@@ -13,35 +18,35 @@ export function initScrollAnimations() {
     // Section entrance
     gsap.fromTo(section, {
       opacity: 0,
-      y: 80,
-      rotateX: 6,
+      y: simplify ? 28 : 80,
+      rotateX: simplify ? 0 : 6,
     }, {
       opacity: 1,
       y: 0,
       rotateX: 0,
-      duration: 1.2,
-      ease: 'power3.out',
+      duration: simplify ? 0.7 : 1.2,
+      ease: simplify ? 'power2.out' : 'power3.out',
       scrollTrigger: {
         trigger: section,
         start: 'top 85%',
         end: 'top 40%',
-        scrub: 0.8,
+        scrub: simplify ? 0.35 : 0.8,
       }
     });
 
     // Section header stagger
     const header = section.querySelector('.section-header');
     if (header) {
-      gsap.fromTo(header.querySelector('.sanskrit'), {
+      gsap.fromTo(header.querySelector('.title-sanskrit'), {
         opacity: 0,
-        y: 30,
-        scale: 0.9,
+        y: simplify ? 16 : 30,
+        scale: simplify ? 1 : 0.9,
       }, {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.8,
-        ease: 'back.out(1.4)',
+        duration: simplify ? 0.55 : 0.8,
+        ease: simplify ? 'power2.out' : 'back.out(1.4)',
         scrollTrigger: {
           trigger: header,
           start: 'top 80%',
@@ -51,12 +56,12 @@ export function initScrollAnimations() {
 
       gsap.fromTo(header.querySelector('.translation'), {
         opacity: 0,
-        y: 20,
+        y: simplify ? 12 : 20,
       }, {
         opacity: 1,
         y: 0,
-        duration: 0.6,
-        delay: 0.2,
+        duration: simplify ? 0.45 : 0.6,
+        delay: simplify ? 0.05 : 0.2,
         ease: 'power2.out',
         scrollTrigger: {
           trigger: header,
@@ -70,15 +75,15 @@ export function initScrollAnimations() {
   // Tech stack icons stagger
   gsap.fromTo('.tech-icon-wrap', {
     opacity: 0,
-    scale: 0.5,
-    y: 40,
+    scale: simplify ? 0.9 : 0.5,
+    y: simplify ? 18 : 40,
   }, {
     opacity: 1,
     scale: 1,
     y: 0,
-    duration: 0.8,
-    stagger: 0.05,
-    ease: 'back.out(1.5)',
+    duration: simplify ? 0.55 : 0.8,
+    stagger: simplify ? 0.03 : 0.05,
+    ease: simplify ? 'power2.out' : 'back.out(1.5)',
     scrollTrigger: {
       trigger: '.tech-funnel',
       start: 'top 85%',
@@ -90,14 +95,14 @@ export function initScrollAnimations() {
   gsap.utils.toArray('.project-card').forEach((card, i) => {
     gsap.fromTo(card, {
       opacity: 0,
-      y: 50,
-      rotateY: -10,
+      y: simplify ? 22 : 50,
+      rotateY: simplify ? 0 : -10,
     }, {
       opacity: 1,
       y: 0,
       rotateY: 0,
-      duration: 0.8,
-      delay: i * 0.15,
+      duration: simplify ? 0.6 : 0.8,
+      delay: i * (simplify ? 0.08 : 0.15),
       ease: 'power3.out',
       scrollTrigger: {
         trigger: card,
@@ -111,14 +116,14 @@ export function initScrollAnimations() {
   gsap.utils.toArray('.philosophy-card').forEach((card, i) => {
     gsap.fromTo(card, {
       opacity: 0,
-      y: 40,
-      scale: 0.95,
+      y: simplify ? 18 : 40,
+      scale: simplify ? 1 : 0.95,
     }, {
       opacity: 1,
       y: 0,
       scale: 1,
-      duration: 0.7,
-      delay: i * 0.1,
+      duration: simplify ? 0.55 : 0.7,
+      delay: i * (simplify ? 0.06 : 0.1),
       ease: 'power2.out',
       scrollTrigger: {
         trigger: card,
@@ -132,15 +137,15 @@ export function initScrollAnimations() {
   gsap.utils.toArray('.achievement-card').forEach((card, i) => {
     gsap.fromTo(card, {
       opacity: 0,
-      y: 30,
-      scale: 0.9,
+      y: simplify ? 16 : 30,
+      scale: simplify ? 1 : 0.9,
     }, {
       opacity: 1,
       y: 0,
       scale: 1,
-      duration: 0.6,
-      delay: i * 0.1,
-      ease: 'back.out(1.2)',
+      duration: simplify ? 0.5 : 0.6,
+      delay: i * (simplify ? 0.06 : 0.1),
+      ease: simplify ? 'power2.out' : 'back.out(1.2)',
       scrollTrigger: {
         trigger: card,
         start: 'top 88%',
@@ -154,13 +159,13 @@ export function initScrollAnimations() {
   if (aboutCard) {
     gsap.fromTo(aboutCard, {
       opacity: 0,
-      y: 60,
-      rotateX: 8,
+      y: simplify ? 22 : 60,
+      rotateX: simplify ? 0 : 8,
     }, {
       opacity: 1,
       y: 0,
       rotateX: 0,
-      duration: 1,
+      duration: simplify ? 0.7 : 1,
       ease: 'power3.out',
       scrollTrigger: {
         trigger: aboutCard,
@@ -175,11 +180,11 @@ export function initScrollAnimations() {
   if (contactForm) {
     gsap.fromTo(contactForm, {
       opacity: 0,
-      y: 40,
+      y: simplify ? 18 : 40,
     }, {
       opacity: 1,
       y: 0,
-      duration: 0.8,
+      duration: simplify ? 0.6 : 0.8,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: contactForm,

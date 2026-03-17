@@ -344,3 +344,10 @@
     width: 16px;
   }
 }
+
+@media (max-width: 420px) {
+  .tl-kw {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}

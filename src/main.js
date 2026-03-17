@@ -48,40 +48,55 @@ import { initScrollAnimations } from './utils/ScrollAnimations.js';
 
 
 // ══════════════════════════════════════════════
-// MASTER NAVBAR HIDE/SHOW CONTROLLER (WITH SCROLL LOCK)
+// NAVBAR — Responsive hamburger on mobile
 // ══════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
   const topNav = document.getElementById('top-nav');
-  const navLinks = document.querySelectorAll('#top-nav .nav-link');
-  
-  // The magic lock variable
-  let isNavigating = false; 
-
   if (!topNav) return;
 
-  // 1. Force hide on link click
-  navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      
-      isNavigating = true; // Lock the scroll listener
-      topNav.classList.add('hidden'); // Hide the navbar
-      
-      // Unlock the scroll listener after 1 second 
-      // (giving the browser enough time to scroll past the top 50px)
-      setTimeout(() => {
-        isNavigating = false;
-      }, 1000); 
-      
+  const toggleBtn = topNav.querySelector('.nav-toggle');
+  const menu = topNav.querySelector('#nav-menu');
+  const links = topNav.querySelectorAll('.nav-link');
+
+  if (!toggleBtn || !menu) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+  const setOpen = (open) => {
+    topNav.dataset.open = open ? 'true' : 'false';
+    toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggleBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+
+  setOpen(false);
+
+  toggleBtn.addEventListener('click', () => {
+    const open = topNav.dataset.open === 'true';
+    setOpen(!open);
+  });
+
+  links.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (isMobile()) setOpen(false);
     });
   });
 
-  // 2. Bring it back when returning to the absolute top
-  window.addEventListener('scroll', () => {
-    // ONLY un-hide if we are at the top AND we didn't just click a button
-    if (!isNavigating && window.scrollY < 50) { 
-      topNav.classList.remove('hidden');
-    }
+  document.addEventListener('click', (e) => {
+    if (!isMobile()) return;
+    const open = topNav.dataset.open === 'true';
+    if (!open) return;
+    if (topNav.contains(e.target)) return;
+    setOpen(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    setOpen(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (!isMobile()) setOpen(false);
   });
 });
 

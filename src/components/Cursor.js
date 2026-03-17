@@ -1,19 +1,26 @@
 export class Cursor {
   constructor() {
-    this.dot = document.getElementById('cursor-dot');
-    this.ring = document.getElementById('cursor-ring');
-    if (!this.dot || !this.ring) return;
+    // Disable on touch devices for performance/usability
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    this.cursor = document.getElementById('cursor-vedanta');
+    this.aura = document.getElementById('cursor-vedanta-aura');
+    if (!this.cursor || !this.aura) return;
 
     this.mouse = { x: 0, y: 0 };
-    this.ringPos = { x: 0, y: 0 };
+    this.cursorPos = { x: 0, y: 0 };
+    this.auraPos = { x: 0, y: 0 };
     this.isHovering = false;
-    this.heroRect = null;
 
     this._onMouseMove = this._onMouseMove.bind(this);
     this._onMouseEnterLink = this._onMouseEnterLink.bind(this);
     this._onMouseLeaveLink = this._onMouseLeaveLink.bind(this);
+    this._onMouseLeaveWindow = this._onMouseLeaveWindow.bind(this);
+    this._onMouseEnterWindow = this._onMouseEnterWindow.bind(this);
 
     document.addEventListener('mousemove', this._onMouseMove);
+    window.addEventListener('mouseleave', this._onMouseLeaveWindow);
+    window.addEventListener('mouseenter', this._onMouseEnterWindow);
 
     // Track hover on interactive elements
     const interactives = document.querySelectorAll('a, button, input, textarea, .skill-tab, .project-card');
@@ -22,54 +29,53 @@ export class Cursor {
       el.addEventListener('mouseleave', this._onMouseLeaveLink);
     });
 
+    this._setVisible(false);
     this._animate();
   }
 
   _onMouseMove(e) {
     this.mouse.x = e.clientX;
     this.mouse.y = e.clientY;
+    this._setVisible(true);
   }
 
   _onMouseEnterLink() {
     this.isHovering = true;
-    this.dot.classList.add('hover-link');
-    this.ring.classList.add('hover-link');
+    this.cursor.classList.add('is-hovering');
+    this.aura.classList.add('is-hovering');
   }
 
   _onMouseLeaveLink() {
     this.isHovering = false;
-    this.dot.classList.remove('hover-link');
-    this.ring.classList.remove('hover-link');
+    this.cursor.classList.remove('is-hovering');
+    this.aura.classList.remove('is-hovering');
+  }
+
+  _onMouseLeaveWindow() {
+    this._setVisible(false);
+  }
+
+  _onMouseEnterWindow() {
+    // Will become visible on next mousemove
+  }
+
+  _setVisible(visible) {
+    const v = visible ? '1' : '0';
+    this.cursor.style.opacity = v;
+    this.aura.style.opacity = v;
   }
 
   _animate() {
     requestAnimationFrame(() => this._animate());
 
-    // Instant dot follow
-    this.dot.style.left = this.mouse.x + 'px';
-    this.dot.style.top = this.mouse.y + 'px';
+    // Smooth cursor follow (transform-only for performance)
+    this.cursorPos.x += (this.mouse.x - this.cursorPos.x) * 0.35;
+    this.cursorPos.y += (this.mouse.y - this.cursorPos.y) * 0.35;
 
-    // Lagging ring follow
-    this.ringPos.x += (this.mouse.x - this.ringPos.x) * 0.15;
-    this.ringPos.y += (this.mouse.y - this.ringPos.y) * 0.15;
-    this.ring.style.left = this.ringPos.x + 'px';
-    this.ring.style.top = this.ringPos.y + 'px';
+    this.auraPos.x += (this.mouse.x - this.auraPos.x) * 0.16;
+    this.auraPos.y += (this.mouse.y - this.auraPos.y) * 0.16;
 
-    // Gravitational lensing near hero singularity
-    const heroSection = document.getElementById('hero');
-    if (heroSection) {
-      const rect = heroSection.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const dx = this.mouse.x - centerX;
-      const dy = this.mouse.y - centerY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < 300 && rect.top < window.innerHeight && rect.bottom > 0) {
-        this.ring.classList.add('warped');
-      } else {
-        this.ring.classList.remove('warped');
-      }
-    }
+    this.cursor.style.transform = `translate3d(${this.cursorPos.x - 9}px, ${this.cursorPos.y - 9}px, 0)`;
+    this.aura.style.transform = `translate3d(${this.auraPos.x - 23}px, ${this.auraPos.y - 23}px, 0)`;
   }
 }

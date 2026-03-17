@@ -42,6 +42,9 @@
 
 /* style the italic question inside */
 .about-text em {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
   color: var(--cosmic-teal);
   font-style: italic;
   text-shadow: 0 0 20px rgba(0, 229, 204, 0.4);

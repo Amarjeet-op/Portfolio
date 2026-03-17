@@ -11,9 +11,9 @@
 </head>
 <body>
 
-  <!-- CUSTOM CURSOR -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
+  <!-- CUSTOM CURSOR (desktop only) -->
+  <div id="cursor-vedanta" aria-hidden="true"></div>
+  <div id="cursor-vedanta-aura" aria-hidden="true"></div>
 
   <!-- PRELOADER -->
   <div id="preloader">
@@ -24,19 +24,33 @@
   <!-- GLOBAL BACKGROUND CANVAS -->
   <canvas id="bg-canvas"></canvas>
 
-  <nav id="top-nav">
+  <header id="top-nav" role="banner">
     <div class="nav-container">
-      <a href="#hero" class="nav-link">Home</a>
-      <a href="#about" class="nav-link">About</a>
-      <a href="#tech-stack" class="nav-link">Tech</a>
-      <a href="#skills" class="nav-link">Skills</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#experience" class="nav-link">Experience</a>
-      <a href="#achievements" class="nav-link">Achievements</a>
-      <a href="#philosophy" class="nav-link">Philosophy</a>
-      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#hero" class="nav-brand" aria-label="Go to Home">AA</a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-menu">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav id="nav-menu" class="nav-menu" aria-label="Primary">
+        <a href="#hero" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#tech-stack" class="nav-link">Tech</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#philosophy" class="nav-link">Philosophy</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#footer" class="nav-link">Neti Neti</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- HERO SECTION — अहं ब्रह्मास्मि -->
@@ -834,10 +848,6 @@
   </div>
 
 </footer>
-
-<a href="#hero" id="floating-logo" title="Return to Source">
-  <span class="logo-text">AA</span>
-</a>
 
   <script type="module" src="/src/main.js"></script>
 </body>
