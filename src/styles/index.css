@@ -296,6 +296,11 @@ canvas {
   max-width: 100%;
 }
 
+/* Old Android safety: if WebGL fails/pauses, never show white */
+canvas {
+  background-color: #030308;
+}
+
 /* Custom cursor only on desktop/fine pointers */
 @media (pointer: fine) {
   html,
