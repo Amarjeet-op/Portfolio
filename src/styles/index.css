@@ -43,6 +43,14 @@ body {
   }
 }
 
+/* Older Android/WebView safety: disable blur filters site-wide on touch */
+@media (pointer: coarse) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
 .nav-container {
   width: 100%;
   max-width: var(--container-max);
