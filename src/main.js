@@ -77,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   links.forEach((link) => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      // Always use normal anchor scrolling; just close hamburger on mobile.
       if (isMobile()) setOpen(false);
     });
   });

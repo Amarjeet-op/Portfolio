@@ -6,6 +6,11 @@ gsap.registerPlugin(ScrollTrigger);
 export function initScrollAnimations() {
   // Mobile/legacy browsers often need more robust ScrollTrigger settings
   ScrollTrigger.config({ ignoreMobileResize: true });
+  ScrollTrigger.defaults({
+    // Helps prevent “jumpiness” from layout shifts on mobile
+    invalidateOnRefresh: true,
+    fastScrollEnd: true
+  });
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
@@ -220,4 +225,5 @@ export function initScrollAnimations() {
   };
   window.addEventListener('load', () => setTimeout(doRefresh, 50), { once: true });
   setTimeout(doRefresh, 250);
+  setTimeout(doRefresh, 900);
 }

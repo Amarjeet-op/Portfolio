@@ -383,6 +383,8 @@ canvas {
   }
 }
 
+/* Single-section mode removed: keep natural smooth scrolling everywhere. */
+
 /* Custom cursor only on desktop/fine pointers */
 @media (pointer: fine) {
   html,
@@ -457,6 +459,15 @@ canvas {
   margin-bottom: 60px;
   position: relative;
   z-index: 1;
+  scroll-margin-top: calc(var(--nav-h) + 18px);
+}
+
+/* Nav-jump UX: keep details below the fold for these two sections */
+#skills-top::after,
+#experience-top::after {
+  content: '';
+  display: block;
+  height: clamp(120px, 22vh, 240px);
 }
 
 .section-title {
@@ -727,12 +738,13 @@ footer {
 
 /* ── BOTTOM ROW ── */
 .footer-bottom {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
   width: 100%;
   max-width: 900px;
+  text-align: center;
 }
 
 /* ── IDENTITY ── */
@@ -740,6 +752,7 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  align-items: center;
 }
 
 .footer-name {
@@ -762,6 +775,7 @@ footer {
   display: flex;
   gap: 0.75rem;
   align-items: center;
+  justify-content: center;
 }
 
 .footer-social-link {
