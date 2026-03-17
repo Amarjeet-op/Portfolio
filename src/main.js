@@ -107,6 +107,45 @@ document.addEventListener('DOMContentLoaded', () => {
 let bgScene, heroScene, aboutScene, techScene, skillsScene, projectsScene, experienceScene, philosophyScene, achievementsScene, contactScene;
 let rafId;
 
+function getAndroidMajorVersion() {
+  const ua = navigator.userAgent || '';
+  const m = ua.match(/Android\s+(\d+)/i);
+  return m ? Number(m[1]) : null;
+}
+
+function supportsWebGL() {
+  try {
+    const c = document.createElement('canvas');
+    const gl =
+      c.getContext('webgl2', { powerPreference: 'low-power' }) ||
+      c.getContext('webgl', { powerPreference: 'low-power' }) ||
+      c.getContext('experimental-webgl');
+    return !!gl;
+  } catch {
+    return false;
+  }
+}
+
+function enableStaticFallback(reason = 'webgl') {
+  if (rafId) cancelAnimationFrame(rafId);
+  bgScene = heroScene = aboutScene = techScene = skillsScene = projectsScene = experienceScene = philosophyScene = achievementsScene = contactScene = null;
+  document.documentElement.classList.add('no-webgl');
+  document.documentElement.dataset.renderMode = reason;
+}
+
+function attachWebGLContextLossGuard(canvas) {
+  if (!canvas) return;
+  canvas.addEventListener(
+    'webglcontextlost',
+    (e) => {
+      // On older Android/WebView this can happen during scroll/resize; go static instead of washing out.
+      e.preventDefault?.();
+      enableStaticFallback('context-lost');
+    },
+    { passive: false }
+  );
+}
+
 function initScenes() {
   bgScene = new BackgroundScene();
   heroScene = new HeroScene();
@@ -118,6 +157,17 @@ function initScenes() {
   philosophyScene = new PhilosophyScene();
   achievementsScene = new AchievementsScene();
   contactScene = new ContactScene();
+
+  attachWebGLContextLossGuard(document.getElementById('bg-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('hero-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('about-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('tech-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('skills-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('projects-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('experience-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('philosophy-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('achievements-canvas'));
+  attachWebGLContextLossGuard(document.getElementById('contact-canvas'));
 }
 
 function initComponents() {
@@ -166,6 +216,19 @@ function animate() {
 // ═══════════════════════════════════════════════════════
 
 function boot() {
+  const androidMajor = getAndroidMajorVersion();
+  const legacyAndroid = typeof androidMajor === 'number' && androidMajor > 0 && androidMajor < 8;
+  const webglOk = supportsWebGL();
+
+  if (!webglOk || legacyAndroid) {
+    enableStaticFallback(!webglOk ? 'no-webgl' : 'legacy-android');
+    const preloaderEl = document.getElementById('preloader');
+    if (preloaderEl) preloaderEl.style.display = 'none';
+    initComponents();
+    initScrollAnimations();
+    return;
+  }
+
   // Start preloader — when it finishes, init everything
   new Preloader(() => {
     initScenes();

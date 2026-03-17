@@ -301,6 +301,22 @@ canvas {
   background-color: #030308;
 }
 
+/* Static fallback: disable WebGL canvases if device/browser is unstable */
+.no-webgl #bg-canvas,
+.no-webgl #hero-canvas,
+.no-webgl #about-canvas,
+.no-webgl #tech-canvas,
+.no-webgl #skills-canvas,
+.no-webgl #projects-canvas,
+.no-webgl #experience-canvas,
+.no-webgl #philosophy-canvas,
+.no-webgl #achievements-canvas,
+.no-webgl #contact-canvas,
+.no-webgl #footer-canvas,
+.no-webgl #preloader-canvas {
+  display: none !important;
+}
+
 /* Custom cursor only on desktop/fine pointers */
 @media (pointer: fine) {
   html,
