@@ -9,10 +9,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
+  background: var(--void-black);
+  overscroll-behavior-y: none;
 }
 
 body {
   padding-top: var(--nav-h);
+  background: var(--void-black);
+  min-height: 100%;
 }
 
 #top-nav {
@@ -28,6 +32,15 @@ body {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Mobile/touch: avoid backdrop-filter washout/compositing bugs */
+@media (pointer: coarse) {
+  #top-nav {
+    background: rgba(3, 3, 8, 0.92);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .nav-container {
