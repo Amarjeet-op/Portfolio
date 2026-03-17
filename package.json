@@ -9,10 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "three": "^0.128.0",
-    "gsap": "^3.12.2"
+    "gsap": "^3.12.2",
+    "three": "^0.128.0"
   },
   "devDependencies": {
+    "terser": "^5.46.1",
     "vite": "^5.0.0"
   }
 }
