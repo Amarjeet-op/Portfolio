@@ -317,6 +317,72 @@ canvas {
   display: none !important;
 }
 
+/* ══════════════════════════════════════════════
+   NO-WEBGL BACKGROUND — lightweight CSS fallback
+   ══════════════════════════════════════════════ */
+
+.no-webgl body::before,
+.no-webgl body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Layer 1: deep-space drifting gradients */
+.no-webgl body::before {
+  background:
+    radial-gradient(900px 600px at 20% 20%, rgba(255, 153, 51, 0.10), transparent 60%),
+    radial-gradient(800px 520px at 75% 35%, rgba(0, 229, 204, 0.10), transparent 62%),
+    radial-gradient(900px 700px at 35% 85%, rgba(157, 0, 255, 0.08), transparent 64%),
+    radial-gradient(1100px 820px at 85% 90%, rgba(255, 215, 0, 0.06), transparent 66%),
+    linear-gradient(180deg, #030308 0%, #060615 60%, #030308 100%);
+  opacity: 0.95;
+  transform: translate3d(0, 0, 0);
+  animation: noWebglDrift 18s ease-in-out infinite alternate;
+}
+
+/* Layer 2: subtle starfield */
+.no-webgl body::after {
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 30% 70%, rgba(255,255,255,0.16) 0 1px, transparent 2px),
+    radial-gradient(circle at 55% 35%, rgba(255,255,255,0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.14) 0 1px, transparent 2px),
+    radial-gradient(circle at 90% 15%, rgba(255,255,255,0.12) 0 1px, transparent 2px);
+  background-size: 280px 280px;
+  opacity: 0.35;
+  animation: noWebglStars 26s linear infinite;
+  mix-blend-mode: screen;
+}
+
+/* Keep all content above the fallback background */
+.no-webgl .section,
+.no-webgl #top-nav,
+.no-webgl #footer,
+.no-webgl #preloader {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes noWebglDrift {
+  from { filter: hue-rotate(0deg) saturate(1); transform: translate3d(0, 0, 0) scale(1); }
+  to   { filter: hue-rotate(-10deg) saturate(1.05); transform: translate3d(0, -12px, 0) scale(1.02); }
+}
+
+@keyframes noWebglStars {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-120px, 80px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .no-webgl body::before,
+  .no-webgl body::after {
+    animation: none !important;
+  }
+}
+
 /* Custom cursor only on desktop/fine pointers */
 @media (pointer: fine) {
   html,
