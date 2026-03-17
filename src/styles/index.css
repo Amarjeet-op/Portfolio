@@ -9,13 +9,13 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
-  background: var(--void-black);
+  background: var(--void-black, #030308);
   overscroll-behavior-y: none;
 }
 
 body {
   padding-top: var(--nav-h);
-  background: var(--void-black);
+  background: var(--void-black, #030308);
   min-height: 100%;
 }
 
@@ -284,8 +284,8 @@ body {
 
 body {
   font-family: var(--font-body);
-  background: var(--void-black);
-  color: var(--text-primary);
+  background: var(--void-black, #030308);
+  color: var(--text-primary, #e8e8f0);
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }

@@ -9,9 +9,10 @@ export class ExperienceScene {
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
     this.camera.position.z = 60;
 
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true, antialias: true });
+    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: false, antialias: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x030308, 1);
 
     this.clock = new THREE.Clock();
     

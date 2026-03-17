@@ -10,9 +10,11 @@ export class HeroScene {
     this.camera.position.set(0, 8, 20);
     this.camera.lookAt(0, 0, 0);
 
-    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true, antialias: false });
+    // Solid clear to avoid transparent-canvas washout on older Android
+    this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: false, antialias: false });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x030308, 1);
 
     this.clock = new THREE.Clock();
     
