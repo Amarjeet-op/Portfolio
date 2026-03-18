@@ -2,159 +2,164 @@
    PROJECTS — सृष्टि
    ══════════════════════════════════════════════ */
 
-#projects {
-  perspective: 1200px;
-}
-
-.project-vedanta {
-  font-family: 'Noto Serif Devanagari', serif;
-  font-size: 0.75rem;
-  color: #FFD700;
-  letter-spacing: 0.15em;
-  margin: -0.3rem 0 0.75rem 0;
-  opacity: 0.7;
-}
-
-.project-card {
-  perspective: 1000px;
-  cursor: none;
-  height: 100%;
-  display: flex;
-}
-
-.project-inner {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  padding: 40px 32px;
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease-out, box-shadow 0.3s;
-  will-change: transform;
-  position: relative;
-  overflow: hidden;
-  height: 100%;        /* ← ADD THIS */
-  flex: 1;            /* ← ADD */
-  display: flex;      /* ← ADD */
-  flex-direction: column;
-}
-
-.project-inner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cosmic-teal), var(--saffron), transparent);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.project-card:hover .project-inner::before {
-  opacity: 1;
-}
-
-.project-card:hover .project-inner {
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(0, 229, 204, 0.08);
-}
-
-.project-number {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: rgba(255, 153, 51, 0.08);
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  line-height: 1;
-  transform: translateZ(10px);
-}
-
-.project-inner h3 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--star-white);
-  margin-bottom: 14px;
-  transform: translateZ(30px);
-}
-
-.project-inner p {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 20px;
-  transform: translateZ(20px);
-}
-
-.project-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  transform: translateZ(25px);
-  margin-top: auto;
+   #projects {
+    perspective: 1200px;
+  }
   
-}
-
-.project-tags span {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  padding: 4px 12px;
-  border: 1px solid rgba(0, 229, 204, 0.2);
-  border-radius: 100px;
-  color: var(--cosmic-teal);
-  background: rgba(0, 229, 204, 0.04);
-}
-
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .project-vedanta {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 0.75rem;
+    color: #FFD700;
+    letter-spacing: 0.15em;
+    margin: -0.3rem 0 0.75rem 0;
+    opacity: 0.7;
   }
-}
-
-#projects-canvas {
-  position: absolute; /* ← takes it out of flow */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-#projects {
-  perspective: 1200px;
-  position: relative; /* ← needed for absolute canvas */
-}
-
-.projects-grid {
-  position: relative;
-  z-index: 1; /* ← sits above canvas */
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  max-width: 1100px;
-  width: 100%;
-  align-items: stretch;
-}
-
-.section-header {
-  position: relative;
-  z-index: 1; /* ← sits above canvas */
-}
-
-@media (max-width: 1024px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
+  
+  .project-card {
+    perspective: 1000px;
+    cursor: none;
+    height: 100%;
+    display: flex;
   }
-}
-
-@media (max-width: 560px) {
+  
   .project-inner {
-    padding: 32px 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 40px 32px;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, box-shadow 0.3s;
+    will-change: transform;
+    position: relative;
+    overflow: hidden;
+    height: 100%;        /* ← ADD THIS */
+    flex: 1;            /* ← ADD */
+    display: flex;      /* ← ADD */
+    flex-direction: column;
   }
-}
+  
+  .project-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cosmic-teal), var(--saffron), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  
+  .project-card:hover .project-inner::before {
+    opacity: 1;
+  }
+  
+  .project-card:hover .project-inner {
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 40px rgba(0, 229, 204, 0.08);
+  }
+  
+  .project-number {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(255, 153, 51, 0.08);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    line-height: 1;
+    transform: translateZ(10px);
+  }
+  
+  .project-inner h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--star-white);
+    margin-bottom: 14px;
+    transform: translateZ(30px);
+  }
+  
+  .project-inner p {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    transform: translateZ(20px);
+  }
+  
+  .project-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    transform: translateZ(25px);
+    margin-top: auto;
+    
+  }
+  
+  .project-tags span {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border: 1px solid rgba(0, 229, 204, 0.2);
+    border-radius: 100px;
+    color: var(--cosmic-teal);
+    background: rgba(0, 229, 204, 0.04);
+  }
+  
+  #projects-canvas {
+    position: absolute; /* ← takes it out of flow */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  #projects {
+    perspective: 1200px;
+    position: relative; /* ← needed for absolute canvas */
+  }
+  
+  .projects-grid {
+    position: relative;
+    z-index: 1; /* ← sits above canvas */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .section-header {
+    position: relative;
+    z-index: 1; /* ← sits above canvas */
+  }
+  
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* ── Mobile: single column, one card after another ── */
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  
+    .project-card {
+      height: auto; /* let card grow naturally in single-column flow */
+    }
+  }
+  
+  @media (max-width: 560px) {
+    .project-inner {
+      padding: 32px 20px;
+    }
+  }
