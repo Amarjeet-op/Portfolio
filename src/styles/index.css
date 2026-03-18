@@ -119,13 +119,11 @@
     width: 44px;
     height: 44px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    /* Solid bg — no backdrop-filter: causes compositing/touch bugs on Android */
-    background: rgba(3, 3, 8, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     cursor: pointer;
-    /* Improve touch reliability on Android */
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
     transition: border-color 0.2s ease, transform 0.2s ease;
   }
   
@@ -181,33 +179,28 @@
     }
   
     .nav-menu {
-      /* Fixed keeps it in the viewport layer — avoids Android touch-clip bug
-         that occurs when position:absolute overflows a position:fixed parent */
-      position: fixed;
+      position: absolute;
       top: calc(var(--nav-h) + 10px);
       left: var(--container-pad);
       right: var(--container-pad);
-      z-index: 999;
       display: grid;
       grid-template-columns: 1fr;
       gap: 6px;
       padding: 10px;
-      /* Solid colour first — reliable on all Android WebViews */
-      background-color: #030308;
       background: rgba(3, 3, 8, 0.97);
+      background-color: #030308; /* fallback for older Android */
       border: 1px solid rgba(255, 255, 255, 0.10);
       border-radius: 16px;
       box-shadow:
         0 24px 60px rgba(0, 0, 0, 0.72),
         0 0 0 1px rgba(0, 229, 204, 0.08);
-      /* No backdrop-filter: causes compositing/touch issues on Android */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       transform-origin: top;
       transform: translateY(-8px) scale(0.98);
       opacity: 0;
       pointer-events: none;
       transition: transform 0.22s ease, opacity 0.22s ease;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: pan-y;
     }
   
     #top-nav[data-open="true"] .nav-menu {
@@ -220,9 +213,6 @@
       padding: 12px 12px;
       font-size: 0.82rem;
       letter-spacing: 0.10em;
-      /* Remove 300ms tap delay on Android */
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
     }
   
     #top-nav[data-open="true"] .nav-toggle-bars {
